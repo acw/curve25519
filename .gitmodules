@@ -1,0 +1,3 @@
+[submodule "upstream-c"]
+	path = upstream-c
+	url = https://github.com/agl/curve25519-donna.git
