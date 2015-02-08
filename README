@@ -1,0 +1,19 @@
+This library implements a simple set of functions over the Curve25519 function.
+
+The underlying math is a binding to Google's cruve25519-donna implementation.
+Please see information about this project here:
+
+  https://code.google.com/p/curve25519-donna/
+
+You can find their repository as a submodule of this one (in upstream-c) or
+on GitHub here:
+
+  https://code.google.com/p/curve25519-donna/
+
+Their implementation is based off Dan Bernstein's orginal work on the subject,
+which you can find here:
+
+  http://cr.yp.to/ecdh.html
+
+Credit where credit is due: I just wrote some wrappers. The authors and
+committers for the projects above did the real work.
