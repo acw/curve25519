@@ -89,7 +89,7 @@ curve25519 a b =
            unsafePackCStringFinalizer ptrc 32 (free ptrc)
 
 basePoint :: ByteString
-basePoint = BS.replicate 31 0 `BS.append` BS.singleton 9
+basePoint = BS.cons 9 (BS.replicate 31 0)
 
 buildNumber :: ByteString -> Integer
 buildNumber bstr = run 0 (BS.unpack bstr)
