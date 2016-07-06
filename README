@@ -1,6 +1,6 @@
 This library implements a simple set of functions over the Curve25519 function.
 
-The underlying math is a binding to Google's cruve25519-donna implementation.
+The underlying math is a binding to Google's curve25519-donna implementation.
 Please see information about this project here:
 
   https://code.google.com/p/curve25519-donna/
