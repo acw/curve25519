@@ -1,5 +1,5 @@
 name:                curve25519
-version:             0.2.2
+version:             0.2.3
 synopsis:            Fast implementations of the curve25519 elliptic curve primitives.
 description:         Haskell bindings and extensions to the curve25519-donna
                      codebase.
