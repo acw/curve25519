@@ -17,7 +17,7 @@ library
   exposed-modules:     Crypto.Curve25519,
                        Crypto.Curve25519.Exceptions,
                        Crypto.Curve25519.Pure
-  build-depends:       base       >= 4.6  && < 4.10,
+  build-depends:       base       >= 4.6  && < 4.14,
                        bytestring >= 0.10 && < 0.12,
                        crypto-api >= 0.10 && < 0.14
   hs-source-dirs:      src
@@ -32,13 +32,13 @@ test-suite test-curve25519
   main-is:             Test.hs
   cc-options:          -Dmain=ctest_main
   c-sources:           upstream-c/test-curve25519.c
-  build-depends:       base                       >= 4.6     && < 4.10,
-                       bytestring                 >= 0.10    && < 0.12,
-                       crypto-api                 >= 0.10    && < 0.14,
-                       curve25519                 >= 0.2     && < 0.3,
+  build-depends:       base,
+                       bytestring,
+                       crypto-api,
+                       curve25519,
                        DRBG                       >= 0.5     && < 0.7,
-                       HUnit                      >= 1.2.5.2 && < 1.4,
-                       QuickCheck                 >= 2.4     && < 2.8,
+                       HUnit                      >= 1.2.5.2 && < 1.7,
+                       QuickCheck                 >= 2.4     && < 2.15,
                        tagged                     >= 0.7     && < 0.9,
                        test-framework             >= 0.2     && < 1.0.0,
                        test-framework-hunit       >= 0.3     && < 0.5,
