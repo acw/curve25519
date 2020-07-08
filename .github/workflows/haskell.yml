@@ -36,6 +36,9 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: submodules
+        run: |
+          git submodule update --init --recursive
       - name: dependencies
         run: |
           cabal v2-update
