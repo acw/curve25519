@@ -8,7 +8,7 @@ jobs:
       matrix:
         ghc: ['7.10', '8.0', '8.2', '8.4', '8.6', '8.8', '8.10', 'latest']
         cabal: ['2.4.1.0', '3.0.0.0']
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest]
         exclude:
           # GHC 8.8+ only works with cabal v3+
           - ghc: 8.8
