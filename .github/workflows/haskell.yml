@@ -8,15 +8,16 @@ jobs:
       matrix:
         ghc: ['7.10', '8.0', '8.2', '8.4', '8.6', '8.8', '8.10', 'latest']
         cabal: ['2.4', '3.0', '3.2', 'latest']
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
         exclude:
-          # GHC 8.8+ only works with cabal v3+
-          - ghc: 8.8
+          - ghc:
+             - 8.8
+             - 8.10
+             - latest
             cabal: 2.4
-          - ghc: 8.10
-            cabal: 2.4
-          - ghc: latest
-            cabal: 2.4
+          - os: windows-latest
+            ghc:
+              - 7.10
     name: Haskell GHC ${{ matrix.ghc }} / Cabal ${{ matrix.cabal }}
     steps:
       - uses: actions/checkout@v2
