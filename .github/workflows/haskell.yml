@@ -1,0 +1,56 @@
+name: Curve25519 Build
+on: push
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        ghc: ['7.10', '8.0', '8.2', '8.4', '8.6', '8.8', '8.10', 'latest']
+        cabal: ['2.4', '3.0', '3.2', 'latest']
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        exclude:
+          - ghc: '7.10'
+            os: windows-latest
+          - ghc: '8.8'
+            cabal: 2.4
+          - ghc: '8.8'
+            os: windows-latest
+            cabal: '3.2'
+          - ghc: '8.8'
+            os: windows-latest
+            cabal: 'latest'
+          - ghc: '8.10'
+            cabal: 2.4
+          - ghc: latest
+            cabal: 2.4
+    name: Haskell GHC ${{ matrix.ghc }} / Cabal ${{ matrix.cabal }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        uses: actions/setup-haskell@v1.1
+        with:
+          ghc-version: ${{ matrix.ghc }}
+          cabal-version: ${{ matrix.cabal }}      
+      - name: cache
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-cabal
+        with:
+          path: ~/.cabal
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/*.cabal') }}-${{ hashFiles('**/cabal.project') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: submodules
+        run: |
+          git submodule update --init --recursive
+      - name: dependencies
+        run: |
+          cabal v2-update
+          cabal v2-build --only-dependencies --enable-tests --enable-benchmarks
+      - name: build
+        run: cabal v2-build --enable-tests --enable-benchmarks all
+      - name: test
+        run: cabal v2-test all
