@@ -10,14 +10,20 @@ jobs:
         cabal: ['2.4', '3.0', '3.2', 'latest']
         os: [ubuntu-latest, macOS-latest, windows-latest]
         exclude:
-          - ghc:
-             - 8.8
-             - 8.10
-             - latest
+          - ghc: '7.10'
+            os: windows-latest
+          - ghc: '8.8'
             cabal: 2.4
-          - os: windows-latest
-            ghc:
-              - 7.10
+          - ghc: '8.8'
+            os: windows-latest
+            cabal: '3.2'
+          - ghc: '8.8'
+            os: windows-latest
+            cabal: 'latest'
+          - ghc: '8.10'
+            cabal: 2.4
+          - ghc: latest
+            cabal: 2.4
     name: Haskell GHC ${{ matrix.ghc }} / Cabal ${{ matrix.cabal }}
     steps:
       - uses: actions/checkout@v2
