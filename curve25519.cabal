@@ -34,15 +34,14 @@ test-suite test-curve25519
   c-sources:           upstream-c/test-curve25519.c
   build-depends:       base,
                        bytestring,
-                       crypto-api,
                        curve25519,
-                       DRBG                       >= 0.5     && < 0.7,
-                       HUnit                      >= 1.2.5.2 && < 1.7,
-                       QuickCheck                 >= 2.4     && < 2.15,
-                       tagged                     >= 0.7     && < 0.9,
-                       test-framework             >= 0.2     && < 1.0.0,
-                       test-framework-hunit       >= 0.3     && < 0.5,
-                       test-framework-quickcheck2 >= 0.3     && < 0.5
+                       crypto-api,
+                       HUnit,
+                       QuickCheck,
+                       tagged,
+                       test-framework,
+                       test-framework-hunit,
+                       test-framework-quickcheck2
 
 source-repository head
   type:                git

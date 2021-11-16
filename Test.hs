@@ -1,9 +1,10 @@
 import Control.Monad(replicateM)
-import Crypto.Random(CryptoRandomGen, genSeedLength, newGen)
-import Crypto.Random.DRBG(HashDRBG)
+import Crypto.Random(CryptoRandomGen(..), GenError(..), ReseedInfo(..), genSeedLength, newGen)
 import Crypto.Types(ByteLength)
+import Data.ByteString(ByteString)
 import qualified Data.ByteString as BS
-import Data.Tagged(Tagged, unTagged)
+import Data.Tagged(Tagged(..), unTagged)
+import Data.Word(Word64)
 import Test.Framework
 import Test.Framework.Providers.HUnit(testCase)
 import Test.Framework.Providers.QuickCheck2(testProperty)
@@ -16,15 +17,31 @@ import Crypto.Curve25519.Pure
 data KeyPair = KP PrivateKey PublicKey
   deriving (Show)
 
+data FakeRandom = FakeRandom ByteString
+
+randomBufferSize :: Word64
+randomBufferSize = 512
+
+instance CryptoRandomGen FakeRandom where
+  newGen = Right . FakeRandom
+  genSeedLength = Tagged (fromIntegral randomBufferSize)
+  genBytes len (FakeRandom bs)
+    | BS.length bs < len = Left RequestedTooManyBytes
+    | (retval, rest) <- BS.splitAt len bs = Right (retval, FakeRandom rest)
+  reseedInfo (FakeRandom bs) = InXBytes (fromIntegral (BS.length bs))
+  reseedPeriod _ = InXBytes randomBufferSize
+  genBytesWithEntropy len rest (FakeRandom bs) =  genBytes len (FakeRandom (BS.append bs rest))
+  reseed new (FakeRandom old) = Right (FakeRandom (old `BS.append` new))
+
 instance Arbitrary KeyPair where
   arbitrary =
-    do let taggedSeedLen = genSeedLength :: Tagged HashDRBG ByteLength
+    do let taggedSeedLen = genSeedLength :: Tagged FakeRandom ByteLength
            seedLen       = unTagged taggedSeedLen
        seedBS <- BS.pack `fmap` replicateM seedLen arbitrary
        case newGen seedBS of
          Left _ -> arbitrary
          Right g ->
-           case generateKeyPair (g :: HashDRBG) of
+           case generateKeyPair (g :: FakeRandom) of
              Left _ -> arbitrary
              Right (priv, pub, _) -> return (KP priv pub)
 
