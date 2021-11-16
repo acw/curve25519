@@ -1,5 +1,5 @@
 name:                curve25519
-version:             0.2.6
+version:             0.2.7
 synopsis:            Fast implementations of the curve25519 elliptic curve primitives.
 description:         Haskell bindings and extensions to the curve25519-donna
                      codebase.
@@ -17,7 +17,7 @@ library
   exposed-modules:     Crypto.Curve25519,
                        Crypto.Curve25519.Exceptions,
                        Crypto.Curve25519.Pure
-  build-depends:       base       >= 4.6  && < 4.16,
+  build-depends:       base       >= 4.6  && < 4.20,
                        bytestring >= 0.10 && < 0.12,
                        crypto-api >= 0.10 && < 0.14
   hs-source-dirs:      src
