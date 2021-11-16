@@ -1,2 +1,4 @@
 dist/
 *.swp
+dist-newstyle/
+cabal.project.local
