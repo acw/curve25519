@@ -14,7 +14,7 @@ maintainer:          Adam Wick <awick@uhsure.com>
 category:            Math
 build-type:          Simple
 cabal-version:       >=1.10
-tested-with:         GHC==9.2.1, GHC==9.0.1,
+tested-with:         GHC==9.8.1, GHC==9.2.1, GHC==9.0.1,
                      GHC==8.10.7, GHC==8.8.4, GHC==8.6.5, GHC==8.4.4, GHC==8.2.2, GHC==8.0.2,
                      GHC==7.10.3, GHC==7.8.4, GHC==7.6.3
 
@@ -24,7 +24,7 @@ library
                        Crypto.Curve25519.Exceptions,
                        Crypto.Curve25519.Pure
   build-depends:       base       >= 4.6  && < 4.20,
-                       bytestring >= 0.10 && < 0.12,
+                       bytestring >= 0.10 && < 0.13,
                        crypto-api >= 0.10 && < 0.14
   hs-source-dirs:      src
   if arch(x86_64)
